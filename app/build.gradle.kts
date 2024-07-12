@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.hilt)
+    /*alias(libs.plugins.room)*/
 }
 
 android {
@@ -45,10 +46,17 @@ android {
         kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "/META-INF/{AL2.0,LGPL2.1}"
+            )
+        )
     }
+    /*room {
+        schemaDirectory("$projectDir/schemas")
+    }*/
 }
 
 dependencies {
