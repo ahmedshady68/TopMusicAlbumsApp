@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.hilt)
-    /*alias(libs.plugins.room)*/
 }
 
 android {
@@ -54,9 +53,6 @@ android {
             )
         )
     }
-    /*room {
-        schemaDirectory("$projectDir/schemas")
-    }*/
 }
 
 dependencies {
