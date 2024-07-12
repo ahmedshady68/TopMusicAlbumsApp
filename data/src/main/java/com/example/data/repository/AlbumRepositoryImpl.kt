@@ -21,9 +21,9 @@ class AlbumRepositoryImpl(
                     name = entity.name,
                     artistName = entity.artistName,
                     artworkUrl100 = entity.artworkUrl100,
-                    releaseDate = entity.releaseDate,
-                    copyright = entity.copyright,
-                    genre = entity.genre,
+                    releaseDate = entity.releaseDate ?: "N/A",
+                    copyright = entity.copyright ?: "N/A",
+                    genre = entity.genre ?: "N/A",
                     url = entity.url
                 )
             }
@@ -34,14 +34,14 @@ class AlbumRepositoryImpl(
         val response = apiService.getTopAlbums()
         val albums = response.feed.results.map { album ->
             AlbumEntity(
-                id = album.id,
-                name = album.name,
-                artistName = album.artistName,
-                artworkUrl100 = album.artworkUrl100,
-                releaseDate = album.releaseDate,
-                copyright = album.copyright,
+                id = album.id ?: "N/A",
+                name = album.name ?: "N/A",
+                artistName = album.artistName ?: "N/A",
+                artworkUrl100 = album.artworkUrl100 ?: "N/A",
+                releaseDate = album.releaseDate ?: "N/A",
+                copyright = album.copyright ?: "N/A",
                 genre = album.genres.joinToString { it.name },
-                url = album.url
+                url = album.url ?: "N/A"
             )
         }
         albumDao.insertAll(albums)

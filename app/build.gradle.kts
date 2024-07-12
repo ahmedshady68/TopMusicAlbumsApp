@@ -67,6 +67,9 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation (libs.room.runtime)
+    implementation (libs.room.rtx)
+    kapt (libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,5 +80,7 @@ dependencies {
     implementation(libs.hiltAndroid)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
+    implementation(libs.coil.compose)
+    implementation(libs.hilt.navigation.compose)
     kapt(libs.hiltCompiler)
 }
