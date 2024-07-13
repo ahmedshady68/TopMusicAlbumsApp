@@ -1,5 +1,6 @@
 package com.example.topmusicalbumsapp.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,30 +19,47 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.domain.model.Album
 import com.example.domain.repository.Resource
+import com.example.topmusicalbumsapp.R
 import com.example.topmusicalbumsapp.viewmodel.AlbumViewModel
 
 @Composable
 fun AlbumListScreen(viewModel: AlbumViewModel = hiltViewModel(), navController: NavController) {
     val state by viewModel.state.collectAsState()
-
+    val context = LocalContext.current
     when (state) {
         is Resource.Loading -> CircularProgressIndicator()
-        is Resource.Error -> Text(text = "An error occurred: ${(state as Resource.Error).message}")
+        is Resource.Error ->
+            Toast.makeText(
+                context,
+                stringResource(id = R.string.error_title_text) + (state as Resource.Error).message,
+                Toast.LENGTH_SHORT
+            ).show()
+
         is Resource.Success -> {
             val albums = (state as Resource.Success<List<Album>>).data
-            LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-                items(albums) { album ->
-                    AlbumItem(album) {
-                        navController.navigate("album_detail/${album.id}")
+            if (albums.isEmpty()) {
+                AlbumErrorScreen(
+                    stringResource(R.string.no_data_title_text),
+                    stringResource(R.string.no_data_description_text),
+                    retryOnClick = { viewModel.fetchAlbums() })
+            } else {
+                LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+                    items(albums) { album ->
+                        AlbumItem(album) {
+                            navController.navigate("album_detail/${album.id}")
+                        }
                     }
                 }
             }
+
         }
     }
 }
