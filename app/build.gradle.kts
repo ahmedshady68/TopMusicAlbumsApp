@@ -83,4 +83,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hiltCompiler)
+    // lottie Compose
+    implementation(libs.lottie)
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation(libs.leakcanary)
 }

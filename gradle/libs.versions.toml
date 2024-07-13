@@ -20,6 +20,8 @@ retrofit = "2.9.0"
 room = "2.6.1"
 coroutines = "1.9.0-RC"
 coil = "2.5.0"
+lottie = "6.0.1"
+leakcanary = "2.12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +52,10 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+
 
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-rtx = { module = "androidx.room:room-ktx", version.ref = "room" }

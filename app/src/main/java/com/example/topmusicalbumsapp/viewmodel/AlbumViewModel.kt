@@ -23,7 +23,7 @@ class AlbumViewModel @Inject constructor(
         fetchAlbums()
     }
 
-    private fun fetchAlbums() {
+    fun fetchAlbums() {
         viewModelScope.launch {
             getAlbumsUseCase().collect { resource ->
                 _state.value = resource
