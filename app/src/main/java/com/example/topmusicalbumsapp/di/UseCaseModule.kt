@@ -2,7 +2,6 @@ package com.example.topmusicalbumsapp.di
 
 import com.example.domain.repository.AlbumRepository
 import com.example.domain.usecase.GetAlbumsUseCase
-import com.example.domain.usecase.RefreshAlbumsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,10 +13,5 @@ object UseCaseModule {
     @Provides
     fun provideGetAlbumsUseCase(repo: AlbumRepository): GetAlbumsUseCase {
         return GetAlbumsUseCase(repo)
-    }
-
-    @Provides
-    fun provideRefreshAlbumsUseCase(repo: AlbumRepository): RefreshAlbumsUseCase {
-        return RefreshAlbumsUseCase(repo)
     }
 }

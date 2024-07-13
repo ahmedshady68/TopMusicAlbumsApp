@@ -1,16 +1,18 @@
 package com.example.data.remote.model
 
-data class AlbumResponse(val feed: Feed)
-data class Feed(val results: List<Album>)
+import com.google.gson.annotations.SerializedName
+
+data class AlbumResponse(@SerializedName("feed") val feed: Feed)
+data class Feed(@SerializedName("results") val results: List<Album>)
 data class Album(
-    val id: String?,
-    val name: String?,
-    val artistName: String?,
-    val artworkUrl100: String?,
-    val releaseDate: String?,
-    val copyright: String?,
-    val genres: List<Genre>,
+    @SerializedName("id") val id: String?,
+    @SerializedName("name") val name: String?,
+    @SerializedName("artistName") val artistName: String?,
+    @SerializedName("artworkUrl100") val artworkUrl100: String?,
+    @SerializedName("releaseDate") val releaseDate: String?,
+    @SerializedName("copyright") val copyright: String?,
+    @SerializedName("genres") val genres: List<Genre>,
     val url: String?
 )
 
-data class Genre(val name: String)
+data class Genre(@SerializedName("name") val name: String)

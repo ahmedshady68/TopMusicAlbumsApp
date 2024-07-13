@@ -16,7 +16,7 @@ fun AppNavigation() {
 
     NavHost(navController, startDestination = "album_list") {
         composable("album_list") {
-            AlbumListScreen(navController, albumViewModel)
+            AlbumListScreen(navController = navController)
         }
         composable("album_detail/{albumId}") { backStackEntry ->
             val albumId = backStackEntry.arguments?.getString("albumId") ?: return@composable

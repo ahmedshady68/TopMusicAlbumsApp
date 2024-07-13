@@ -3,27 +3,31 @@ package com.example.topmusicalbumsapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Album
+import com.example.domain.repository.Resource
 import com.example.domain.usecase.GetAlbumsUseCase
-import com.example.domain.usecase.RefreshAlbumsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AlbumViewModel @Inject constructor(
-    private val getAlbumsUseCase: GetAlbumsUseCase,
-    private val refreshAlbumsUseCase: RefreshAlbumsUseCase
+    private val getAlbumsUseCase: GetAlbumsUseCase
 ) : ViewModel() {
 
-    val albums: Flow<List<Album>> = getAlbumsUseCase()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    private val _state = MutableStateFlow<Resource<List<Album>>>(Resource.Loading())
+    val state: StateFlow<Resource<List<Album>>> = _state
 
-    fun refreshAlbums() {
+    init {
+        fetchAlbums()
+    }
+
+    private fun fetchAlbums() {
         viewModelScope.launch {
-            refreshAlbumsUseCase()
+            getAlbumsUseCase().collect { resource ->
+                _state.value = resource
+            }
         }
     }
 }

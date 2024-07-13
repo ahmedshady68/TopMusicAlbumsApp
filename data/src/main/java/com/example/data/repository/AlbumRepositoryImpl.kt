@@ -1,49 +1,41 @@
 package com.example.data.repository
 
 import com.example.data.local.AlbumDao
-import com.example.data.local.AlbumEntity
+import com.example.data.mapper.toDomain
+import com.example.data.mapper.toEntity
 import com.example.data.remote.ApiService
 import com.example.domain.model.Album
 import com.example.domain.repository.AlbumRepository
+import com.example.domain.repository.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 
 class AlbumRepositoryImpl(
     private val albumDao: AlbumDao,
     private val apiService: ApiService
 ) : AlbumRepository {
-
-    override fun getAlbums(): Flow<List<Album>> {
-        return albumDao.getAllAlbums().map { entities ->
-            entities.map { entity ->
+    override fun getAlbums(): Flow<Resource<List<Album>>> = flow {
+        emit(Resource.Loading())
+        try {
+            val response = apiService.getTopAlbums()
+            val albums = response.feed.results.map { dto ->
                 Album(
-                    id = entity.id,
-                    name = entity.name,
-                    artistName = entity.artistName,
-                    artworkUrl100 = entity.artworkUrl100,
-                    releaseDate = entity.releaseDate ?: "N/A",
-                    copyright = entity.copyright ?: "N/A",
-                    genre = entity.genre ?: "N/A",
-                    url = entity.url
+                    id = dto.id ?: "N/A",
+                    name = dto.name ?: "N/A",
+                    artistName = dto.artistName ?: "N/A",
+                    artworkUrl100 = dto.artworkUrl100 ?: "N/A",
+                    releaseDate = dto.releaseDate ?: "N/A",
+                    copyright = dto.copyright ?: "N/A",
+                    genre = dto.genres?.firstOrNull()?.name ?: "N/A",
+                    url = dto.url ?: "N/A"
                 )
             }
+            albumDao.insertAll(albums.map { it.toEntity() })
+            emit(Resource.Success(albumDao.getAllAlbums().first().map { it.toDomain() }))
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Resource.Success(albumDao.getAllAlbums().first().map { it.toDomain() }))
         }
-    }
-
-    override suspend fun refreshAlbums() {
-        val response = apiService.getTopAlbums()
-        val albums = response.feed.results.map { album ->
-            AlbumEntity(
-                id = album.id ?: "N/A",
-                name = album.name ?: "N/A",
-                artistName = album.artistName ?: "N/A",
-                artworkUrl100 = album.artworkUrl100 ?: "N/A",
-                releaseDate = album.releaseDate ?: "N/A",
-                copyright = album.copyright ?: "N/A",
-                genre = album.genres.joinToString { it.name },
-                url = album.url ?: "N/A"
-            )
-        }
-        albumDao.insertAll(albums)
     }
 }
