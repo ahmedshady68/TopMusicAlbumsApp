@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +20,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -35,7 +36,7 @@ fun AlbumListScreen(viewModel: AlbumViewModel = hiltViewModel(), navController: 
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
     when (state) {
-        is Resource.Loading -> CircularProgressIndicator()
+        is Resource.Loading -> AlbumLoadingScreen()
         is Resource.Error ->
             Toast.makeText(
                 context,
@@ -83,8 +84,14 @@ fun AlbumItem(album: Album, onClick: () -> Unit) {
                     .fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = album.name, style = MaterialTheme.typography.headlineSmall)
-            Text(text = album.artistName, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = album.name,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.tertiary,
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.Bold
+            )
+            Text(text = album.artistName, style = MaterialTheme.typography.bodySmall)
         }
     }
 }

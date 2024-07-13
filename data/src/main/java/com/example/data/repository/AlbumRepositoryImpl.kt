@@ -26,8 +26,8 @@ class AlbumRepositoryImpl(
                     artistName = dto.artistName ?: "N/A",
                     artworkUrl100 = dto.artworkUrl100 ?: "N/A",
                     releaseDate = dto.releaseDate ?: "N/A",
-                    copyright = dto.copyright ?: "N/A",
-                    genre = dto.genres?.firstOrNull()?.name ?: "N/A",
+                    copyright = response.feed.copyright ?: "N/A",
+                    genre = dto.genres.firstOrNull()?.name ?: "N/A",
                     url = dto.url ?: "N/A"
                 )
             }

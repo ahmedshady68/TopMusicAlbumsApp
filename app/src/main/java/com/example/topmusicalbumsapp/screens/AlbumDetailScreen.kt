@@ -20,11 +20,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.example.domain.model.Album
 import com.example.domain.repository.Resource
+import com.example.topmusicalbumsapp.R
 import com.example.topmusicalbumsapp.viewmodel.AlbumViewModel
 
 @Composable
@@ -50,8 +52,12 @@ fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel = hiltViewMode
                             .fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(text = album.name, style = MaterialTheme.typography.headlineMedium)
-                    Text(text = album.artistName, style = MaterialTheme.typography.headlineLarge)
+                    Text(
+                        text = album.name,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.tertiary
+                    )
+                    Text(text = album.artistName, style = MaterialTheme.typography.bodyLarge)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = "Genre: ${album.genre}", style = MaterialTheme.typography.bodySmall)
                     Text(
@@ -59,7 +65,7 @@ fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel = hiltViewMode
                         style = MaterialTheme.typography.bodySmall
                     )
                     Text(
-                        text = "Copyright: ${album.copyright}",
+                        text = album.copyright,
                         style = MaterialTheme.typography.bodySmall
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -68,7 +74,7 @@ fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel = hiltViewMode
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(album.url))
                         context.startActivity(intent)
                     }) {
-                        Text(text = "View in iTunes Store")
+                        Text(text = stringResource(id = R.string.itunes_button_text))
                     }
                 }
             }
