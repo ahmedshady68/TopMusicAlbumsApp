@@ -45,9 +45,13 @@ android {
         kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "/META-INF/{AL2.0,LGPL2.1}"
+            )
+        )
     }
 }
 
@@ -61,6 +65,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation (libs.room.runtime)
+    implementation (libs.room.rtx)
+    kapt (libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,5 +78,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.hiltAndroid)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.coil.compose)
+    implementation(libs.hilt.navigation.compose)
     kapt(libs.hiltCompiler)
 }
