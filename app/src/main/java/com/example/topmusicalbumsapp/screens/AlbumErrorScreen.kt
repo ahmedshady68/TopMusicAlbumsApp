@@ -70,9 +70,12 @@ fun AlbumErrorScreen(title: String, subTitle: String, retryOnClick: () -> Unit) 
             onClick = {
                 retryOnClick.invoke()
             },
-            border = BorderStroke(1.dp, Color.Green)
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary)
         ) {
-            Text(text = stringResource(R.string.retry_button_text), color = Color.Green)
+            Text(
+                text = stringResource(R.string.retry_button_text),
+                color = MaterialTheme.colorScheme.tertiary
+            )
         }
     }
 }

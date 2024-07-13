@@ -87,4 +87,8 @@ dependencies {
     implementation(libs.lottie)
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation(libs.leakcanary)
+    // for test
+    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.mockk)
+    implementation(libs.arch.core)
 }
