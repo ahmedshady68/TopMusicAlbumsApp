@@ -36,4 +36,4 @@ The app is structured into three modules: data, domain, and presentation. It fol
 <img src="https://github.com/user-attachments/assets/26d6b6e0-ec55-4d18-bc2f-0da6429920dc" width= "200">
 
 ## Video
-- **Video Link**: [Contains UI components, ViewModel, and DI setup](https://www.youtube.com/watch?v=cwLQHInxp_E).
+- **Video Link**: [screen recording of the app showing all features](https://www.youtube.com/watch?v=cwLQHInxp_E).
