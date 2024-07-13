@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Album
 import com.example.domain.repository.Resource
 import com.example.topmusicalbumsapp.R
@@ -45,7 +45,7 @@ fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel = hiltViewMode
                         .verticalScroll(rememberScrollState())
                 ) {
                     Image(
-                        painter = rememberImagePainter(album.artworkUrl100),
+                        painter = rememberAsyncImagePainter(album.artworkUrl100),
                         contentDescription = null,
                         modifier = Modifier
                             .height(300.dp)

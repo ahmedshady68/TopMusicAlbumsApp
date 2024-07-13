@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Album
 import com.example.domain.repository.Resource
 import com.example.topmusicalbumsapp.R
@@ -77,7 +77,7 @@ fun AlbumItem(album: Album, onClick: () -> Unit) {
             modifier = Modifier.padding(8.dp)
         ) {
             Image(
-                painter = rememberImagePainter(album.artworkUrl100),
+                painter = rememberAsyncImagePainter(album.artworkUrl100),
                 contentDescription = null,
                 modifier = Modifier
                     .height(150.dp)
