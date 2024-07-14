@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
-    alias(libs.plugins.room)
+    alias(libs.plugins.realm)
 }
 
 android {
@@ -32,9 +32,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
 }
 
 dependencies {
@@ -48,11 +45,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.retrofit)
     implementation (libs.retrofit.gson)
-    implementation (libs.room.runtime)
-    implementation (libs.room.rtx)
-    kapt (libs.room.compiler)
     implementation (libs.coroutines.core)
     implementation (libs.coroutines.android)
     implementation(libs.kotlinx.coroutines.test)
     implementation(libs.mockk)
+    implementation(libs.realm)
 }

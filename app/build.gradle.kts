@@ -67,9 +67,6 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(project(":domain"))
     implementation(project(":data"))
-    implementation (libs.room.runtime)
-    implementation (libs.room.rtx)
-    kapt (libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -91,4 +88,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.test)
     implementation(libs.mockk)
     implementation(libs.arch.core)
+    implementation(libs.realm)
 }

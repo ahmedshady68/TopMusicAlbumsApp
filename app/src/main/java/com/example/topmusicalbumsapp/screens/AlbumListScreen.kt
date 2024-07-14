@@ -1,6 +1,5 @@
 package com.example.topmusicalbumsapp.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -33,16 +31,8 @@ import com.example.topmusicalbumsapp.viewmodel.AlbumViewModel
 @Composable
 fun AlbumListScreen(navController: NavController, viewModel: AlbumViewModel) {
     val state by viewModel.state.collectAsState()
-    val context = LocalContext.current
     when (state) {
         is Resource.Loading -> AlbumLoadingScreen()
-        is Resource.Error ->
-            Toast.makeText(
-                context,
-                stringResource(id = R.string.error_title_text),
-                Toast.LENGTH_SHORT
-            ).show()
-
         is Resource.Success -> {
             val albums = (state as Resource.Success<List<Album>>).data
             if (albums.isEmpty()) {
@@ -59,7 +49,6 @@ fun AlbumListScreen(navController: NavController, viewModel: AlbumViewModel) {
                     }
                 }
             }
-
         }
     }
 }

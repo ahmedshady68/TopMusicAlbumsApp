@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Album
 import com.example.domain.repository.Resource
@@ -34,7 +33,6 @@ fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel) {
 
     when (state) {
         is Resource.Loading -> AlbumLoadingScreen()
-        is Resource.Error -> Text(text = "An error occurred: ${(state as Resource.Error).message}")
         is Resource.Success -> {
             val album = (state as Resource.Success<List<Album>>).data.find { it.id == albumId }
             album?.let {

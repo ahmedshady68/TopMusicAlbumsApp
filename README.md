@@ -1,12 +1,12 @@
 # Music App
 
 ## Overview
-This is a sample Android app that displays the top 100 music albums across all genres using Apple's RSS generator. The app uses modern Android development tools and libraries, including Jetpack Compose, Room, Dagger Hilt, and Kotlin Coroutines with Flow.
+This is a sample Android app that displays the top 100 music albums across all genres using Apple's RSS generator. The app uses modern Android development tools and libraries, including Jetpack Compose, Realm, Dagger Hilt, and Kotlin Coroutines with Flow.
 
 ## Features
 - Displays a grid of music albums with album name, artist, and album art.
 - Tapping on an album opens a detailed view with additional information.
-- Caches data locally using Room for offline access.
+- Caches data locally using Realm for offline access.
 - Handles network errors gracefully.
 
 ## Architecture
@@ -18,7 +18,7 @@ The app is structured into three modules: data, domain, and presentation. It fol
 
 ## Libraries Used
 - Jetpack Compose
-- Room
+- Realm
 - Dagger Hilt
 - Kotlin Coroutines and Flow
 - Retrofit

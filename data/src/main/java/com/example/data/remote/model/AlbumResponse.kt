@@ -15,7 +15,7 @@ data class Album(
     @SerializedName("artworkUrl100") val artworkUrl100: String?,
     @SerializedName("releaseDate") val releaseDate: String?,
     @SerializedName("genres") val genres: List<Genre>,
-    val url: String?
+    @SerializedName("url") val url: String?
 )
 
 data class Genre(@SerializedName("name") val name: String)

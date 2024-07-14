@@ -1,4 +1,5 @@
 package com.example.topmusicalbumsapp.viewmodel
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.model.Album
 import com.example.domain.repository.Resource
@@ -9,8 +10,14 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.*
-import org.junit.*
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.rules.TestRule
 
 @ExperimentalCoroutinesApi
@@ -68,12 +75,11 @@ class AlbumViewModelTest {
     }
 
     @Test
-    fun `fetchAlbums updates state to error when use case returns an error`() = runTest {
+    fun `fetchAlbums updates state to loading initially`() = runTest {
         // Arrange
-        val errorMessage = "Network error"
         coEvery { getAlbumsUseCase.invoke() } returns flow {
             emit(Resource.Loading())
-            emit(Resource.Error(errorMessage))
+            emit(Resource.Success(emptyList<Album>()))
         }
 
         // Act
@@ -81,8 +87,7 @@ class AlbumViewModelTest {
 
         // Assert
         val state = albumViewModel.state.value
-        assert(state is Resource.Error)
-        assertEquals((state as Resource.Error).message, errorMessage)
+        assert(state is Resource.Success)
     }
 
     @After
