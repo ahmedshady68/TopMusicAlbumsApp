@@ -1,31 +1,30 @@
 package com.example.data.mapper
 
-
-import com.example.data.local.AlbumEntity
+import com.example.data.local.realm.AlbumRealmModel
 import com.example.domain.model.Album
 
-fun AlbumEntity.toDomain(): Album {
+fun AlbumRealmModel.toDomain(): Album {
     return Album(
         id = id,
         name = name,
-        artistName = artistName,
-        url = url,
+        artistName = artist,
+        artworkUrl100 = thumbnailUrl,
         genre = genre ?: "N/A",
         releaseDate = releaseDate ?: "N/A",
         copyright = copyright ?: "N/A",
-        artworkUrl100 = artworkUrl100
+        url = url ?: "N/A"
     )
 }
 
-fun Album.toEntity(): AlbumEntity {
-    return AlbumEntity(
-        id = id,
-        name = name,
-        artistName = artistName,
-        url = url,
-        genre = genre,
-        releaseDate = releaseDate,
-        copyright = copyright,
-        artworkUrl100 = artworkUrl100
-    )
+fun Album.toRealmModel(): AlbumRealmModel {
+    return AlbumRealmModel().apply {
+        id = this@toRealmModel.id
+        name = this@toRealmModel.name
+        artist = this@toRealmModel.artistName
+        thumbnailUrl = this@toRealmModel.artworkUrl100
+        genre = this@toRealmModel.genre
+        releaseDate = this@toRealmModel.releaseDate
+        copyright = this@toRealmModel.copyright
+        url = this@toRealmModel.url
+    }
 }
