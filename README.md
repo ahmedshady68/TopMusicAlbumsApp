@@ -6,7 +6,7 @@ This is a sample Android app that displays the top 100 music albums across all g
 ## Features
 - Displays a grid of music albums with album name, artist, and album art.
 - Tapping on an album opens a detailed view with additional information.
-- Caches data locally using Realm for offline access.
+- Caches data locally using Realm [another branch for Room -> master_with_room_database] for offline access.
 - Handles network errors gracefully.
 
 ## Architecture
@@ -18,7 +18,7 @@ The app is structured into three modules: data, domain, and presentation. It fol
 
 ## Libraries Used
 - Jetpack Compose
-- Realm
+- Realm [you can found the same task with Room in branch -> master_with_room_database]
 - Dagger Hilt
 - Kotlin Coroutines and Flow
 - Retrofit
