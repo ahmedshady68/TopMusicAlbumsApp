@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,11 +29,11 @@ import com.example.topmusicalbumsapp.R
 import com.example.topmusicalbumsapp.viewmodel.AlbumViewModel
 
 @Composable
-fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel = hiltViewModel()) {
+fun AlbumDetailScreen(albumId: String?, viewModel: AlbumViewModel) {
     val state by viewModel.state.collectAsState()
 
     when (state) {
-        is Resource.Loading -> CircularProgressIndicator()
+        is Resource.Loading -> AlbumLoadingScreen()
         is Resource.Error -> Text(text = "An error occurred: ${(state as Resource.Error).message}")
         is Resource.Success -> {
             val album = (state as Resource.Success<List<Album>>).data.find { it.id == albumId }

@@ -23,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.domain.model.Album
@@ -32,7 +31,7 @@ import com.example.topmusicalbumsapp.R
 import com.example.topmusicalbumsapp.viewmodel.AlbumViewModel
 
 @Composable
-fun AlbumListScreen(viewModel: AlbumViewModel = hiltViewModel(), navController: NavController) {
+fun AlbumListScreen(navController: NavController, viewModel: AlbumViewModel) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
     when (state) {
@@ -40,7 +39,7 @@ fun AlbumListScreen(viewModel: AlbumViewModel = hiltViewModel(), navController: 
         is Resource.Error ->
             Toast.makeText(
                 context,
-                stringResource(id = R.string.error_title_text) + (state as Resource.Error).message,
+                stringResource(id = R.string.error_title_text),
                 Toast.LENGTH_SHORT
             ).show()
 
